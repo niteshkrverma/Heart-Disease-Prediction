@@ -1,0 +1,190 @@
+{% extends "base.html" %} {% block title %}
+<title>Report</title>
+{% endblock title %} {% load static %} {% block body %}
+<style>
+  table {
+    width: 750px;
+    border-collapse: collapse;
+    margin: 50px auto;
+  }
+
+  /* Zebra striping */
+  tr:nth-of-type(odd) {
+    background: #eee;
+  }
+
+  th {
+    background: #3498db;
+    color: white;
+    font-weight: bold;
+  }
+
+  td,
+  th {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: left;
+    font-size: 18px;
+  }
+
+  /* 
+    Max width before this PARTICULAR table gets nasty
+    This query will take effect for any screen smaller than 760px
+    and also iPads specifically.
+    */
+  @media only screen and (max-width: 760px),
+    (min-device-width: 768px) and (max-device-width: 1024px) {
+    /* table {
+      width: 900px;
+    } */
+
+    /* Force table to not be like tables anymore */
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+      display: block;
+    }
+
+    /* Hide table headers (but not display: none;, for accessibility) */
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr {
+      border: 1px solid #ccc;
+    }
+
+    td {
+      /* Behave  like a "row" */
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50%;
+    }
+
+    td:before {
+      /* Now like a table header */
+      position: absolute;
+      /* Top/left values mimic padding */
+      top: 6px;
+      left: 6px;
+      width: 45%;
+      padding-right: 10px;
+      white-space: nowrap;
+      /* Label the data */
+      content: attr(data-column);
+
+      color: #000;
+      font-weight: bold;
+    }
+
+    table {
+      counter-reset: rowNumber;
+    }
+
+    table tr::before {
+      display: table-cell;
+      counter-increment: rowNumber;
+      content: counter(rowNumber) ".";
+      padding-right: 0.3em;
+      text-align: right;
+    }
+    table {
+      counter-reset: rowNumber;
+    }
+
+    table tr::before {
+      display: table-cell;
+      counter-increment: rowNumber;
+      content: counter(rowNumber) ".";
+      padding-right: 0.3em;
+      text-align: right;
+    }
+
+    .s {
+      background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+      background: linear-gradient(to right, #25c481, #25b7c4);
+      font-family: 'Roboto', sans-serif;
+      border-radius: 3px;
+      margin-bottom: 40px;
+    }
+
+    h1 {
+      font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 40px;
+      padding: 10px;
+    }
+  }
+</style>
+<style>
+  body
+		{
+		    counter-reset: Serial;          
+		}
+
+		table
+		{
+		    border-collapse: separate;
+		}
+
+		tr td:first-child:before
+		{
+		  counter-increment: Serial;      
+		  content: counter(Serial); 
+		}
+</style>
+<div class="s" style="background: -webkit-linear-gradient(left, #25c481, #25b7c4);
+background: linear-gradient(to right, #25c481, #25b7c4);
+font-family: 'Roboto', sans-serif;
+border-radius: 3px;
+margin-bottom: 40px;">
+  <h1 style="font-size: 30px;
+      color: #fff;
+      text-transform: uppercase;
+      font-weight: 600;
+      text-align: center;
+      margin-bottom: 20px;
+      padding: 10px;">Patient Report</h1>
+</div>
+<table style="width: auto">
+  <thead>
+    <tr>
+      <th>Sr.No</th>
+      <th>Patient Name</th>
+      <th>Gender</th>
+      <th>City</th>
+      <th>Data</th>
+      <th>Date Time</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in x %}
+    <tr>
+      <td></td>
+      <td>{{t.user.first_name}} </td>
+      <td>{{t.user.register_table.gender}}</td>
+        <td>{{t.user.register_table.city}}</td>
+      <td data-column="First Name">
+        {{t.age}} , {{t.sex}} , {{t.cp}} , {{t.trestbps}} , {{t.chol}} ,
+        {{t.fbs}} , {{t.restecg}} , {{t.thalach}} , {{t.exang}} , {{t.oldpeak}} , {{t.slope}}
+        , {{t.ca}} , {{t.thal}}
+      </td>
+      <td data-column="Last Name">{{t.Date}}</td>
+      <td data-column="Job Title">
+        {% if t.result > 0 %}<h3 style="color:red;">Positive</h3> {% else %}<h3 style="color:green;">Negative</h3> {% endif %}
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

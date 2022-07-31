@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+{% block script %}
+{% load static %}
+{% endblock script %}
+{% block title %}
+<title>Doctor-Dashboard</title>
+{% endblock title %}
+
+{% block body %}
+<div>
+    <img src="{%static 'doctor3.jpg' %}" alt="" style="width:100%;">
+</div>
+{% comment %} <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>  
+
+<script>sweetAlert("Good job!", "You clicked the button!", "warning");  </script> {% endcomment %}
+<center><h1>Welcome Dr. {{user.first_name}}</h1></center>
+{% endblock body %}
+
+<!-- JS here -->

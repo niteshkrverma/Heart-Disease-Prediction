@@ -1,0 +1,485 @@
+<!doctype html>
+{% load static %}
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  {% block title %}
+  <title>Health</title>
+  {% endblock title %}
+  
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="shortcut icon" type="image/x-icon" href="{% static 'assets/img/favicon.ico' %}">
+  <!-- CSS here -->
+  
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="{% static 'assets/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/owl.carousel.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/slicknav.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/flaticon.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/gijgo.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/animate.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/animated-headline.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/magnific-popup.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/fontawesome-all.min.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/themify-icons.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/slick.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/nice-select.css' %}">
+  <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">  
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+</head>
+
+{% if messages %}
+{% for message in messages %}
+ {% if message.tags %}  
+ <script>alert("{{ message }}")
+ </script> {% endif %}
+
+{% endfor %}
+
+{% endif %}
+<body>
+  <!-- ? Preloader Start -->
+  <div id="preloader-active">
+    <div class="preloader d-flex align-items-center justify-content-center">
+      <div class="preloader-inner position-relative">
+        <div class="preloader-circle"></div>
+        <div class="preloader-img pere-text">
+          <img src="{% static 'assets/img/logo/loder.png' %}" alt="">
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Preloader Start -->
+  <header>
+    <div class="header-area">
+      <div class="main-header header-sticky">
+        <div class="container-fluid">
+          <div class="row align-items-center">
+            <!-- Logo -->
+            <div class="col-xl-2 col-lg-2 col-md-1">
+              {% if user.is_superuser %}
+              <div class="logo">
+                <a href="\admin-dashboard"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+              </div>
+              {% elif user.is_staff %}
+              <div class="logo">
+                <a href="\doctor-dashboard"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+              </div>
+              {% elif user.is_active %}
+              <div class="logo">
+                <a href="\user-dashboard"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+              </div>
+              {% else %}
+              <div class="logo">
+                <a href="/"><img src="{% static 'assets/img/logo/logo.png' %}" alt=""></a>
+              </div>
+              {% endif %}
+            </div>
+            <div class="col-xl-10 col-lg-10 col-md-10">
+              <div class="menu-main d-flex align-items-center justify-content-end">
+                <!-- Main-menu -->
+                <div class="main-menu f-right d-none d-lg-block">
+                  {% if user.is_superuser %}
+                  <nav>
+                    <ul id="navigation">
+                      <li><a href="\admin-dashboard">Home</a></li>
+                      <li><a href="/admin-view-patient">Client</a></li>
+                      <li><a href="/admin-view-doctor">Doctor</a></li>
+                      <li><a href="/admin-view-contact">Contact List</a></li>
+                      <li><a href="/admin-view-feedback">Feedback List</a></li>
+                    </ul>
+                  </nav>
+                  {% elif user.is_staff %}
+                  <nav>
+                    <ul id="navigation">
+                      <li><a href="\doctor-dashboard">Home</a></li>
+                      <li><a href="/patient">Client</a></li>
+                      <li><a href="/contact">Profile</a></li>
+                    </ul>
+                  </nav>
+                  {% elif user.is_active %}
+                  <nav>
+                    <ul id="navigation">
+                      <li><a href="\user-dashboard">Home</a></li>
+
+                      <li><a href="/DataInput">Check</a></li>
+                      <li><a href="/report">Report</a></li>
+                      <li><a href="/admin-view-doctor">Doctor</a></li>
+                      <li><a href="/feedback">Feedback</a></li>
+                      <!-- <li><a href="/contact">Profile</a></li> -->
+                    </ul>
+                  </nav>
+                  {% else %}
+                  <nav>
+                    <ul id="navigation">
+                      <li><a href="/">Home</a></li>
+                      <li><a href="/about">About</a></li>
+                      <li><a href="/contact">Contact</a></li>
+                    </ul>
+                  </nav>
+                  {% endif %}
+                </div>
+
+                <div class="header-right-btn f-right d-none d-lg-block ml-15">
+                  {% if user.is_authenticated %}
+                  <nav>
+                    <ul id="navigation">
+                      <li><a href="/user_logout" id="navigation"><button class="btn header-btn"> Logout</button></a></li>
+                      {% else %}
+                     <li><button onclick="document.getElementById('id02').style.display='block'" id="navigation"class="btn header-btn">Signin
+                      / Singup</button></li>
+                    </ul>
+                  </nav>
+                  
+                  
+
+                  
+                    {% endif %}
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile Menu -->
+            <div class="col-12">
+              <div class="mobile_menu d-block d-lg-none"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Header End -->
+  </header>
+  <style>
+    .container2 {
+      max-width: 100%;
+      width: 50%;
+      background-color: #fff;
+      padding: 25px 30px;
+      border-radius: 5px;
+      box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
+      justify-content: center;
+
+    }
+
+    .container2 .title {
+      font-size: 25px;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .container2 .title::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      height: 3px;
+      width: 30px;
+      border-radius: 5px;
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    }
+
+    .content form .user-details {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      margin: 20px 0 12px 0;
+    }
+
+    form .user-details .input-box {
+      margin-bottom: 15px;
+      width: calc(100% / 2 - 20px);
+    }
+
+    form .input-box span.details {
+      display: block;
+      font-weight: 500;
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .user-details .input-box input {
+      height: 45px;
+      width: 100%;
+      outline: none;
+      font-size: 16px;
+      border-radius: 5px;
+      padding-left: 15px;
+      border: 1px solid #ccc;
+      border-bottom-width: 2px;
+      transition: all 0.3s ease;
+    }
+
+    .user-details .input-box input:focus,
+    .user-details .input-box input:valid {
+      border-color: #9b59b6;
+    }
+
+    form .button {
+      height: 45px;
+      margin: 35px 0;
+    }
+
+    form .button input {
+      height: 100%;
+      width: 100%;
+      border-radius: 5px;
+      border: none;
+      color: #fff;
+      font-size: 18px;
+      font-weight: 500;
+      letter-spacing: 1px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, #71b7e6, #9b59b6);
+    }
+
+    form .button input:hover {
+      /* transform: scale(0.99); */
+      background: linear-gradient(-135deg, #71b7e6, #9b59b6);
+    }
+
+    @media(max-width: 584px) {
+      .container2 {
+        max-width: 100%;
+      }
+
+      form .user-details .input-box {
+        margin-bottom: 15px;
+        width: 100%;
+      }
+
+      form .category {
+        width: 100%;
+      }
+
+      .content form .user-details {
+        max-height: 300px;
+        overflow-y: scroll;
+      }
+
+      .user-details::-webkit-scrollbar {
+        width: 5px;
+      }
+    }
+
+    @media(max-width: 459px) {
+      .container2 .content .category {
+        flex-direction: column;
+      }
+    }
+
+    .container1 {
+      margin-top: 2em;
+      display: flex;
+      justify-content: center;
+    }
+
+    .demo:hover {
+      background-color: gray;
+      cursor: pointer;
+    }
+
+    .social_media {
+      display: flex;
+      justify-content: center;
+    }
+    .create {
+      display: flex;
+      font-size:20px;
+      justify-content: center;
+    }
+
+    .fa {
+      padding: 10px;
+      font-size: 20px;
+      width: 50px;
+      text-align: center;
+      text-decoration: none;
+      margin: 5px 2px;
+      border-radius: 50%;
+    }
+
+    .fa:hover {
+      opacity: 0.7;
+    }
+
+    .fa-facebook {
+      background: #3B5998;
+      color: white;
+    }
+
+    .fa-twitter {
+      background: #55ACEE;
+      color: white;
+    }
+
+    .fa-google {
+      background: #dd4b39;
+      color: white;
+    }
+
+    .fa-linkedin {
+      background: #007bb5;
+      color: white;
+    }
+  </style>
+  <!-- Loging Signup -->
+
+  <div id="id01" class="w3-modal">
+    <div class="container1">
+      <div class="container2">
+        <div class="title">Signup
+          <span onclick="document.getElementById('id01').style.display='none'"
+            style="float: right ;padding: 10px; font-weight: bold;" class="demo">X</span>
+        </div>
+        <div class="content">
+          <form action="/register/" method="POST">
+            {% csrf_token %}
+            <div class="user-details">
+              <div class="input-box">
+                <span class="details">First Name</span>
+                <input type="text" name="first" placeholder="Enter School Name" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Last Name</span>
+                <input type="text" name="last" placeholder="Enter School Name" required>
+              </div>
+              <div class="input-box">
+                <span class="details">UserName</span>
+                <input type="text" name="uname" placeholder="Enter School Name" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Password</span>
+                <input type="text" name="password" placeholder="Enter School Name" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Email</span>
+                <input type="email" name="email" na placeholder="Enter School Address" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Phone Number</span>
+                <input type="text" name="contact" placeholder="Enter Mobile Number" required>
+              </div>
+              <div class="input-box">
+                <span class="details">City</span>
+                <input type="text" name="city" placeholder="Enter City Name" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Age</span>
+                <input type="number" name="age" placeholder="Enter Age" required>
+              </div>
+              <div class="input-box">
+                <span class="details">Gender</span>
+                    <select name="gender" class="input-box">
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+              </div>
+              <div class="input-box">
+                <span class="details">Type</span>
+                    <select name="utype" class="input-box">
+                        <option value="client">I am Patient</option>
+                        <option value="doctor">I am Doctor</option>
+                    </select>
+              </div>
+
+            </div>
+
+            <div class="button">
+              <input type="submit" name="submit" value="submit">
+            </div>
+              <div class="social_media">
+                <a href="#" class="fa fa-facebook"></a>
+                <a href="#" class="fa fa-twitter"></a>
+                <a href="#" class="fa fa-google"></a>
+              </div>
+              <div class="create">
+                <span ><a onclick="document.getElementById('id02').style.display='block';document.getElementById('id01').style.display='none' "
+                  style="color:blue; cursor: pointer;">Already have an account?</a></span>
+                  </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="id02" class="w3-modal">
+    <div class="container1">
+      <div class="container2">
+        <div class="title">Login
+          <span onclick="document.getElementById('id02').style.display='none'"
+            style="float: right ;padding: 10px; font-weight: bold;" class="demo">X</span>
+        </div>
+        <div class="content">
+          <form method="POST" action="/login/">
+            {% csrf_token %}
+            <div class="user-details">
+
+              <div class="input-box">
+                <span class="details">Username</span>
+                <input type="text" name="username" placeholder="Enter Username" required>
+              </div><br>
+              <div class="input-box">
+                <span class="details">Password</span>
+                <input type="password" name="password" placeholder="Enter Mobile Number" required>
+              </div>
+            </div>
+
+            <div class="button">
+              <input type="submit" name="submit" value="Login">
+            </div>
+            <div class="social_media">
+              <a href="#" class="fa fa-facebook"></a>
+              <a href="#" class="fa fa-twitter"></a>
+              <a href="#" class="fa fa-google"></a>
+            </div>
+            <div class="create">
+            <span >Don't have account ? <a onclick="document.getElementById('id01').style.display='block';document.getElementById('id02').style.display='none' "
+              style="color:blue; cursor: pointer;">Create Free Account</a></span>
+              </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% if status %}
+  <script>
+      alert("{{status}}");
+      window.location="/"
+  </script>
+{% endif %}
+<!-- Optional JavaScript; choose one of the two! -->
+{% block body %}
+
+{% endblock %} 
+{% if user.is_superuser %}
+{% else %}
+{% include 'footer.html' %}
+{% endif %}
+
+<script src="{% static '/assets/js/vendor/modernizr-3.5.0.min.js' %}"></script>
+<!-- Jquery, Popper, Bootstrap -->
+<script src="{% static '/assets/js/vendor/jquery-1.12.4.min.js' %}"></script>
+<script src="{% static '/assets/js/popper.min.js' %}"></script>
+<script src="{% static '/assets/js/bootstrap.min.js' %}"></script>
+<!-- Jquery Mobile Menu -->
+<script src="{% static '/assets/js/jquery.slicknav.min.js' %}"></script>
+
+
+<!-- One Page, Animated-HeadLin -->
+<script src="{% static '/assets/js/wow.min.js' %}"></script>
+<script src="{% static '/assets/js/animated.headline.js' %}"></script>
+<script src="{% static '/assets/js/jquery.magnific-popup.js' %}"></script>
+
+
+
+<!-- Jquery Plugins, main Jquery -->
+<script src="{% static '/assets/js/plugins.js' %}"></script>
+<script src="{% static '/assets/js/main.js' %}"></script>

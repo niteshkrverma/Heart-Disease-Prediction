@@ -1,0 +1,389 @@
+{% extends "base.html" %}
+{% block title %}
+<title>User</title>
+{% endblock title %}
+{% load static %}
+{% block body %}
+<style>
+  @import url("https://fonts.googleapis.com/css?family=Montserrat:400,600&display=swap");
+  /* * {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+} */
+
+  .container1 {
+    align-items: center;
+    background: #D8AA96;
+    color: rgba(0, 0, 0, 0.8);
+    display: grid;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    height: 100vh;
+    justify-items: center;
+    weight: 100vw;
+    width: 100%;
+    height: 100%;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    margin-top: 0px;
+  }
+
+  .signup-container1 {
+    display: grid;
+    grid-template-areas: "left right";
+    max-width: 900px;
+  }
+
+  .left-container1 {
+    background: #807182;
+    overflow: hidden;
+    padding: 40px 0 0 0;
+    position: relative;
+    text-align: center;
+    width: 400px;
+  }
+
+  .left-container1 h1 {
+    color: rgba(0, 0, 0, 0.8);
+    display: inline-block;
+    font-size: 24px;
+  }
+
+  .left-container1 h1 i {
+    background: #F7B1AB;
+    border-radius: 50%;
+    color: #807182;
+    font-size: 24px;
+    margin-right: 5px;
+    padding: 10px;
+    transform: rotate(-45deg);
+  }
+
+  .left-container1 .puppy {
+    /* bottom: -5px; */
+    position: absolute;
+    text-align: center;
+
+  }
+
+  .left-container1 .puppy:before {
+    /* background: #807182; */
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 0.4;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+  }
+
+  .left-container1 img {
+    /* filter: sepia(100%); */
+    width: 100%;
+  }
+
+  .right-container1 {
+    background: #f9c7c2;
+    display: grid;
+    grid-template-areas: "."".";
+    width: 600px;
+  }
+
+  .right-container1 h1:nth-of-type(1) {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 28px;
+    font-weight: 600;
+  }
+
+  .right-container1 .set {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+
+  .right-container1 input {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    height: 38px;
+    line-height: 38px;
+    padding-left: 5px;
+  }
+
+  .right-container1 input,
+  .right-container1 label {
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .right-container1 header {
+    padding: 40px;
+  }
+
+  .right-container1 label,
+  .right-container1 input,
+  .right-container1 .pets-photo {
+    width: 250px;
+  }
+
+  .right-container1 .pets-photo {
+    align-items: center;
+    display: grid;
+    grid-template-areas: ". .";
+  }
+
+  .right-container1 .pets-photo button {
+    border: none;
+    border-radius: 50%;
+    height: 38px;
+    margin-right: 10px;
+    outline: none;
+    width: 38px;
+  }
+
+  .right-container1 .pets-photo button i {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 16px;
+  }
+
+  .right-container1 .pets-weight .radio-container1 {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .right-container1 footer {
+    align-items: center;
+    background: #fff;
+    display: grid;
+    padding: 5px 40px;
+  }
+
+  .right-container1 footer button {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    height: 38px;
+    line-height: 38px;
+    width: 100px;
+    border-radius: 19px;
+    font-family: "Montserrat", sans-serif;
+  }
+
+  .right-container1 footer #back {
+    background: rgb(235, 14, 14);
+    transition: 0.2s all ease-in-out;
+  }
+
+  .right-container1 footer #back:hover {
+    background: #171A2B;
+    color: white;
+  }
+
+  .right-container1 footer #next {
+    background: #38821d;
+    border: 1px solid transparent;
+    color: #fff;
+  }
+
+  .right-container1 footer #next:hover {
+    background: #171A2B;
+  }
+
+  .pets-name label,
+  .pets-breed label,
+  .pets-birthday label,
+  .pets-gender label,
+  .pets-spayed-neutered label,
+  .pets-weight label {
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .radio-container1 {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    display: inline-block;
+    padding: 5px;
+  }
+
+  .radio-container1 label {
+    background: transparent;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    display: inline-block;
+    height: 26px;
+    line-height: 26px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    transition: 0.2s all ease-in-out;
+    width: 117px;
+  }
+
+  .radio-container1 input[type=radio] {
+    display: none;
+    /* width: 250px; */
+  }
+
+  .radio-container1 input[type=radio]:checked+label {
+    background: #F7B1AB;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    /* width: 150px; */
+  }
+
+  .selecter {
+    width: 250px;
+  }
+</style>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+  Swal.fire({
+  title: 'To predict heart disease or not so required various type of report',
+  showClass: {
+    popup: 'animate__animated animate__fadeInDown'
+  },
+  hideClass: {
+    popup: 'animate__animated animate__fadeOutUp'
+  }
+})
+</script>
+
+
+<form action="{% url 'result' %}">
+  {% csrf_token %}
+  <div class="container1">
+
+    <div class='signup-container1'>
+      <div class='left-container1'>
+        <i class='fa fa-heart-o' style="font-size:48px;color:red"></i>
+        <h1>
+          Heart Checker
+        </h1>
+        <div class='puppy'>
+          <img src='{% static "heart.jpg" %}'>
+        </div>
+      </div>
+      <div class='right-container1'>
+        <header>
+          <h1>Fill all report details </h1>
+          <div class='set'>
+            <div class='pets-birthday'>
+              <label for='pets-birthday'>City </label>
+              <input id='pets-birthday' type='text' placeholder="Enter City Name" name="city">
+            </div>
+            <div class='pets-breed'>
+              <label for='pets-breed'>Age</label>
+              <input id='pets-breed' name="age" placeholder="Enter Age" type='number'>
+            </div>
+
+          </div>
+          <div class='set'>
+            <div class='pets-breed'>
+              <label for='pets-breed'>Resting Blood Pressure</label>
+              <input id='pets-breed' placeholder="Enter Blood Pressure" name="rbp" type='number'>
+            </div>
+            <div class='pets-birthday'>
+              <label for='pets-birthday'>Serum Cholestoral in mg/dl</label>
+              <input id='pets-birthday' placeholder='Enter Cholestoral' name="sc" type='number'>
+            </div>
+          </div>
+          <div class='set'>
+            <div class='pets-name'>
+              <label for='pets-name'>Old Peak</label>
+              <input id='pets-name' type='number' name="op" placeholder="Enter Oldpeak">
+            </div>
+            <div class='pets-birthday'>
+              <label for='pets-birthday'>Maximum Heart Rate</label>
+              <input id='pets-birthday' name="mhr" placeholder='Enter Max Heart Rate' type='number'>
+            </div>
+          </div>
+          <div class='set'>
+            <div class='pets-birthday'>
+              <label for='pets-birthday'>Coronary Artery</label>
+              <input id='pets-birthday' name="ca" placeholder="Enter Coronary Artery" type='number'>
+            </div>
+            <div class='pets-gender'>
+              <label for='pet-gender-female'>Gender</label>
+              <div class='radio-container1'>
+                <input checked='' id='pet-gender-female' name='gender' type='radio' value='0'>
+                <label for='pet-gender-female'>Female</label>
+                <input id='pet-gender-male' name='gender' type='radio' value='1'>
+                <label for='pet-gender-male'>Male</label>
+              </div>
+            </div>
+          </div>
+          <div class='set'>
+            <div class='pets-gender'>
+              <label for='pet-gender-female'>Exercise Induced Angina</label>
+              <div class='radio-container1'>
+                <input checked='' id='exang' name='exang' type='radio' value='0'>
+                <label for='exang'>No</label>
+                <input id='Yes' name='exang' type='radio' value='1'>
+                <label for='Yes'>Yes</label>
+              </div>
+            </div>
+            <div class='pets-spayed-neutered'>
+              <label for='pet-spayed'>Blood Sugar > 120 mg/dl</label>
+              <div class='radio-container1'>
+                <input checked='' id='spayed' name='BS' type='radio' value='1'>
+                <label for='spayed'>Yes</label>
+                <input id='neutered' name='BS' type='radio' value='0'>
+                <label for='neutered'>No</label>
+              </div>
+            </div>
+          </div>
+          <div class='set'>
+            <div class='pets-breed'>
+              <label for='pets-breed'>Chest Pain</label>
+              <select name="cp" id="" class="selecter">
+                <option value="0">Typical Angina(0)</option>
+                <option value="1">Atypical Angina(1)</option>
+                <option value="2">Non-Anginal(2)</option>
+                <option value="3">Asymptomatic(3)</option>
+              </select>
+            </div>
+            <div class='pets-birthday'>
+              <label for='pets-birthday'>Electrocardiographic</label>
+              <select name="elec" id="" class="selecter">
+                <option value="0">Normal(0)</option>
+                <option value="1">Having ST-T(1)</option>
+                <option value="2">Hypertrophy(2)</option>
+              </select>
+            </div>
+          </div>
+          <div class='set'>
+            <div class='pets-breed'>
+              <label for='pets-breed'>Thal</label>
+              <select name="thal" id="" class="selecter">
+                <option value="0">None(0)</option>
+                <option value="1">Normal(1)</option>
+                <option value="2">Fixed Defect(2)</option>
+                <option value="3">Reversable Defect(3)</option>
+              </select>
+            </div>
+            <div class='pets-birthday'>
+              <label for='pets-birthday'>Slope</label>
+              <select name="Slope" id="" class="selecter">
+                <option value="0">Upsloping(0)</option>
+                <option value="1">Flat(1)</option>
+                <option value="2">Downsloping(2)</option>
+              </select>
+            </div>
+          </div>
+
+
+        </header>
+        <footer>
+          <div class='set'>
+            <button id='back' type="reset">Reset</button>
+            <button id='next'>Submit</button>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+
+</form>
+
+{% endblock %}
